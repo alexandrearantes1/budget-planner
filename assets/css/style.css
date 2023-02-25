@@ -328,3 +328,31 @@ header {
    margin-right:10px;
 }
 
+.item-delete-btn {
+   position: absolute;
+   width:40px;
+   height:30px;
+   z-index: 0;
+   
+   top: calc(45% - 13px);
+   right: 10px;
+
+   cursor: pointer;
+   font-size: 0.8em;
+   text-align: center;
+
+   opacity: 0; 
+   border: none;
+   background-color:transparent;
+
+   transform:scale(0);
+   transform-origin: center center;
+   transition: all 0.3s var(--animation-curve);
+   transition-property: opacity, transform;
+}
+
+.item-delete-btn img {
+   width:  17px;
+   height: 17px;
+}
+
