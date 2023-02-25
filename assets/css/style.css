@@ -194,3 +194,137 @@ header {
 .hidden {
    display: none;
 }
+
+/* Add item form */
+#add-item {
+   display:flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   background: #ebebeb;
+   padding: 10px 0;
+   position: sticky;
+   top: 280px;
+   z-index: 1000;
+   border-bottom:1px solid #d4d4d4;
+}
+
+#add-item input,
+#add-item button {
+   margin:0 5px;
+}
+
+#add-item input {
+   padding: 10px;
+   border-radius: var(--border-radius);
+   background-color: rgb(255, 255, 255);
+}
+
+#add-item input:focus {
+   outline: none;
+}
+
+#add-item-desc {
+   width:220px;
+}
+
+#add-item-value {
+   width:100px;
+}
+
+#add-item button {
+   width:70px;
+   padding: 10px 10px;
+   border-radius: var(--border-radius);
+}
+
+#add-item button:hover {
+   cursor: pointer;
+   color: white;
+}
+
+#alert-container {
+   display:flex;
+   justify-content: center;
+   width: 100%;
+   position: relative;
+}
+
+#alert-box {
+   position: absolute;
+   display: none;
+   border: 1px solid var(--pct-expense-color);
+   padding: 10px;
+   margin: 5px 0px;
+   border-radius: var(--border-radius);
+   color: white;
+   background-color: rgb(181, 0, 0);/* var(--pct-expense-bg-color);*/
+   font-size: 0.8em;
+   z-index: 1000;
+}
+/* End of add item section */
+
+/* Transactions List */
+#list-container {
+   display:flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+#list-header {
+   margin: 10px 0;
+   text-transform: uppercase;
+}
+
+#transaction-list {
+   width: 50%;
+   margin:0px 20px 250px 20px;
+}
+
+/* List Items */
+.list-item {
+   font-size: 0.9em;
+   position: relative;
+   display: flex;
+   align-items: center;
+   padding: 13px 20px 13px 20px;
+   border-top: 1px solid var(--list-item-divider-color);
+   background-color: var(--list-item-light-bg-color);
+   text-transform: uppercase;
+}
+
+.list-item:nth-of-type(2n) {
+   background-color: var(--list-item-dark-bg-color);
+}
+
+.list-item:last-of-type {
+   border-bottom:1px solid var(--list-item-divider-color);
+}
+
+.list-item:hover > div:nth-child(1),
+.list-item:hover > div:nth-child(2) {
+   width: calc(50% - 45px);
+}
+
+.list-item:hover .item-delete-btn {
+   opacity: 1;
+   transform: scale(1);
+}
+
+.description {
+   color: var(--main-color);
+   width: 50%;
+   transition: width 0.3s var(--animation-curve);
+}
+
+.value {
+   width: 50%;
+   text-align: right;
+   margin-right: 10px;
+   transition: width 0.3s var(--animation-curve);
+}
+
+.value span {
+   margin-right:10px;
+}
+

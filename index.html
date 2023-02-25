@@ -41,7 +41,24 @@
    </header>
    <!-- Add new Item -->
    <div id="add-item">
+      <label class="toggle-control"
+            data-tooltip="Tip: use keyboard &uarr; and &darr; to switch between income / expense" 
+            data-tooltip-location="bottom">
+         <input type="checkbox" checked="checked" class="transaction-type" name="type" id="type">
+         <span class="control"></span>
+      </label>
       
+      <label for="add-item-desc" class="hidden">Description</label>
+      <input type="text" name="desc" id="add-item-desc" class="green" maxlength="15" placeholder="Description">
+      <label for="add-item-value" class="hidden">Value</label>
+      <input type="text" name="value" id="add-item-value" maxlength="9" class="green" placeholder="Value">
+      <button id="add-item-button" class="green green-btn" aria-label="Add transaction"
+            data-tooltip="Tip: use keyboard &#x23CE; to add a new transaction" 
+            data-tooltip-location="bottom">&#x23CE;</button>
+   
+      <div class="alert-container">
+         <div id="alert-box"></div>
+      </div>
    </div>
 
    <section id="list-container">
