@@ -269,6 +269,7 @@ header {
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   
 }
 
 #list-header {
@@ -276,7 +277,7 @@ header {
    text-transform: uppercase;
 }
 
-#transaction-list {
+#list {
    width: 50%;
    margin:0px 20px 250px 20px;
 }
@@ -426,7 +427,7 @@ header {
       margin:0;
    }
    
-   #transaction-list {
+   #list {
       width: 100%; 
    }
 
