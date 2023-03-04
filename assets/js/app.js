@@ -117,6 +117,27 @@ export class AppController {
       
       this.list.insertAdjacentHTML('afterbegin', node);
 
+      $(`#${ type }-${ transaction.id }-delete-btn`).addEventListener('click', (event) => {
+         
+         const id = event.target.tagName.toLowerCase() === 'img' ? 
+                    event.target.parentNode.parentNode.id : 
+                    event.target.parentNode.id;
+         
+         if( id ) {
+            this.removeTransaction(id);
+         }
+      });
+   }
+
+   removeTransaction(id) {
+
+      const element = document.querySelector('#' + id);
+         this.list.removeChild(element);
+      
+      if (!this.list.children.length) {
+   
+         this.header.classList.add('hidden');
+      }      
    }
 
    init () {
