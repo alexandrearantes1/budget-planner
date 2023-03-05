@@ -55,9 +55,11 @@ export class Budget {
     * and the percentage of each transaction vs total income.
     */
    calcPercentages() {
+      
       const { allTransactions } = this;
       const totalIncome = this.getTotalByType('inc');
       if(totalIncome === 0) {
+         allTransactions.exp.map((item) => { item.percentage = 0 });
          return {
             globalPercentage: '---',
             all: allTransactions

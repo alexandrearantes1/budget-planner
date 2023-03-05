@@ -107,7 +107,7 @@ export class AppController {
       const value = parseFloat($(DOM.addItemValue).value);
 
       const transaction = this.budget.addTransaction( type, description, value );
-      const id = `#${ type }-${ transaction.id }`;
+      const id = `${ type }-${ transaction.id }`;
       
       if(this.header.classList.contains('hidden')) {
          this.header.classList.remove('hidden');
@@ -115,16 +115,16 @@ export class AppController {
 
       // HTML node for each transaction.
       let node = `
-         <div class="list-item transparent" id="${ type }-${ transaction.id }">
+         <div class="list-item transparent" id="${ id }">
             <div class="description">${ description }</div>
             <div class="value ${ type }-color"><span>${ formatNumber(value, type) }</span></div>
             <div class="pct ${ type }-pct">---</div>
-            <button id="${ type }-${ transaction.id }-delete-btn" class="item-delete-btn" aria-label="Delete item"><img src="assets/images/delete-btn.svg" alt="delete"></button>
+            <button id="${ id }-delete-btn" class="item-delete-btn" aria-label="Delete item"><img src="assets/images/delete-btn.svg" alt="delete"></button>
          </div>`;
       
       this.list.insertAdjacentHTML('afterbegin', node);
 
-      $(`#${ type }-${ transaction.id }-delete-btn`).addEventListener('click', (event) => {
+      $(`#${ id }-delete-btn`).addEventListener('click', (event) => {
          
          const id = event.target.tagName.toLowerCase() === 'img' ? 
                     event.target.parentNode.parentNode.id : 
@@ -156,20 +156,31 @@ export class AppController {
    }
 
    displayPercentages () {
-      const { DOM, budget } = this;
-
+      const { budget } = this;
       const percentages = budget.calcPercentages();
+
       if (budget.getBudget().total >= 0) {
          this.netIncome.textContent = formatNumber(budget.getBudget().total, 'inc');
+         this.netIncome.classList.add('inc-color');
+         this.netIncome.classList.remove('exp-color');
       }
       else {
          this.netIncome.textContent = formatNumber(budget.getBudget().total, 'exp');
+         this.netIncome.classList.add('exp-color');
+         this.netIncome.classList.remove('inc-color');
       }
 
-      
       this.income.textContent = formatNumber(budget.getBudget().inc, 'inc');
       this.expenses.textContent = formatNumber(budget.getBudget().exp, 'exp');
       this.pct.textContent = formatNumber(percentages.globalPercentage, 'pct');
+
+      percentages.all.inc.map((item) => {
+         $('#inc-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
+      });
+
+      percentages.all.exp.map((item) => {
+         $('#exp-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
+      });
    }
 
    clearForm () {
@@ -265,7 +276,7 @@ function formatNumber (n, type = '') {
    number = number.replace(/(\d)(?=(\d{3})+(\.(\d){0,2})*$)/g, '$1,');
    
    // return the number with a "+" or "-" sign depending on type (inc / exp / pct)
-   return  (type === 'exp'? '- ' : '+ ') + number;
+   return  (type === 'exp'? '-' : '+') + number;
 }
 
 /**
