@@ -4,9 +4,6 @@ export class Budget {
    
    constructor(year, month) {
 
-      this.months = ["January", "February", "March", "April", "May", "June",
-                     "July", "August", "September", "November", "December"];
-
       this.year = year;
       this.month = month;
 
@@ -58,8 +55,14 @@ export class Budget {
     * and the percentage of each transaction vs total income.
     */
    calcPercentages() {
-      const { allTransactions }   = this;
-      const totalIncome    = this.getTotalByType('inc');
+      const { allTransactions } = this;
+      const totalIncome = this.getTotalByType('inc');
+      if(totalIncome === 0) {
+         return {
+            globalPercentage: '---',
+            all: allTransactions
+         }
+      }
 
       allTransactions.inc.map(transaction => {
          transaction.percentage = transaction.value / totalIncome * 100;
@@ -120,6 +123,7 @@ export class Budget {
     */
    removeTransaction(id, type) {
 
+      id = parseInt(id);
       let typeArr = this.allTransactions[type].filter(function (item) {
          return item.id !== id;
       });
@@ -131,7 +135,6 @@ export class Budget {
       this.allTransactions[type] = typeArr;
       this.allTransactions.positionsArr = positionsArr;
 
-      this.updateTotals(type);
       this.calcPercentages();
    }
 }

@@ -42,13 +42,12 @@ body {
 }
 
 header { 
-   width: 100%;
    background: url('../images/header.webp') center center no-repeat;
    background-size: cover;
    background-blend-mode:multiply;
    background-color: var(--header-bg-color);
    display: flex;
-   justify-content:right;
+   justify-content: right;
    color: var(--header-color);
    font-size: 1em;
    font-weight: 400;
@@ -79,7 +78,7 @@ header {
    width: 400px;
    height: 260px;
    margin: 0 auto auto 0;
-   padding: 0 20px;
+   padding: 0;
    background: var(--summary-bg-color);
    
 }
@@ -95,7 +94,7 @@ header {
 }
 
 #summary-box-container {
-   width:100%;
+   width:90%;
 }
 
 .summary-box {
@@ -125,14 +124,14 @@ header {
    display:flex;
    justify-content: center;
    align-items: center;
-   width: 45px;
+   width: 50px;
    padding: 5px 0px;
-   font-size: 0.8em;
+   font-size: 0.9em;
    border-radius: 3px;
 }
 
 .summary-exp-pct {
-   font-size: 0.9em;
+   font-size: 0.8em;
    color:var(--header-color);
    background-color: #4c1c1c;
 }

@@ -4,14 +4,19 @@ import { Budget } from './budget.js';
 export class AppController {
    constructor (year, month) {
       
+
       this.DESC_MIN_CHARS = 3; 
       this.budget = new Budget(year, month);
+
+      this.months = ["January", "February", "March", "April", "May", "June",
+                     "July", "August", "September", "November", "December"];
 
       this.DOM = {
                   month: '#month',
               netIncome: '#net-income',
             incomeValue: '#income-value',
           expensesValue: '#expenses-value',
+                 expPct: '#exp-pct',
             addItemType: '#type',
             addItemDesc: '#add-item-desc',
            addItemValue: '#add-item-value',
@@ -25,11 +30,11 @@ export class AppController {
 
       // storing up html elements to be used accross the class. 
       // Summary box
-      this.month     = $(this.DOM.monthValue);
+      this.month     = $(this.DOM.month);
       this.netIncome = $(this.DOM.netIncome);
       this.income    = $(this.DOM.incomeValue);
       this.expenses  = $(this.DOM.expensesValue);
-      this.pct       = $(this.DOM.expensesPct);
+      this.pct       = $(this.DOM.expPct);
       
       // Transactions list
       this.header        = $(this.DOM.listHeader);
@@ -47,8 +52,8 @@ export class AppController {
 
       $(DOM.addItemType).addEventListener('change', (event) => {
 
-         // List of all elements that must change color scheme.
-         const elements = document.querySelectorAll(DOM.addItemDesc + ',' + DOM.addItemValue + ',' + DOM.addItemButton);
+         // List of all form elements that must change color scheme.
+         const elements = [$(DOM.addItemDesc),  $(DOM.addItemValue), $(DOM.addItemButton)];
 
          for ( let element of elements ) {
             
@@ -58,19 +63,21 @@ export class AppController {
                element.classList.toggle('green-btn');
             }
 
-            // Toggle the classes green / red for all elements
+            // Toggle the classes green / red for all form elements
             element.classList.toggle('green');
             element.classList.toggle('red');
          }
          elements[0].focus();
       });
       
+      // Listener for click on addItemButton
       $(DOM.addItemButton).addEventListener('click',  () => {
          if( this.validateForm() ) {
             this.addTransaction();
          }
       });
 
+      // Listener for keyboard controls 
       document.addEventListener('keydown', (event) => {
 
          if( event.code === 'ArrowUp' || event.code === 'ArrowUp' ) {
@@ -97,7 +104,7 @@ export class AppController {
 
       const type = $(DOM.addItemType).checked ? 'inc' : 'exp';
       const description = $(DOM.addItemDesc).value;
-      const value = $(DOM.addItemValue).value;
+      const value = parseFloat($(DOM.addItemValue).value);
 
       const transaction = this.budget.addTransaction( type, description, value );
       const id = `#${ type }-${ transaction.id }`;
@@ -127,9 +134,16 @@ export class AppController {
             this.removeTransaction(id);
          }
       });
+      this.clearForm();
+      this.displayPercentages();
    }
 
    removeTransaction(id) {
+
+      const shortID = id.substr(4, id.length-1);
+      const type = id.substr(0, 3);
+
+      this.budget.removeTransaction(shortID, type);
 
       const element = document.querySelector('#' + id);
          this.list.removeChild(element);
@@ -137,11 +151,38 @@ export class AppController {
       if (!this.list.children.length) {
    
          this.header.classList.add('hidden');
-      }      
+      }
+      this.displayPercentages();   
+   }
+
+   displayPercentages () {
+      const { DOM, budget } = this;
+
+      const percentages = budget.calcPercentages();
+      if (budget.getBudget().total >= 0) {
+         this.netIncome.textContent = formatNumber(budget.getBudget().total, 'inc');
+      }
+      else {
+         this.netIncome.textContent = formatNumber(budget.getBudget().total, 'exp');
+      }
+
+      
+      this.income.textContent = formatNumber(budget.getBudget().inc, 'inc');
+      this.expenses.textContent = formatNumber(budget.getBudget().exp, 'exp');
+      this.pct.textContent = formatNumber(percentages.globalPercentage, 'pct');
+   }
+
+   clearForm () {
+      const { DOM } = this;
+
+      $(DOM.addItemDesc).value = '';
+      $(DOM.addItemValue).value = '';
+      $(DOM.addItemDesc).focus();
    }
 
    init () {
       window.addEventListener('load', () => { this.setupListeners() });
+      this.month.textContent = this.months[this.budget.month];
    }
 
    changeType (type) {
@@ -167,12 +208,12 @@ export class AppController {
       if (description.value.length < this.DESC_MIN_CHARS) {
 
          description.focus();
-         this.showAlert(`Description must have at least ${this.DESC_MIN_CHARS} characters.`, description);
+         this.showAlert(`Description must have at least ${this.DESC_MIN_CHARS} characters.`, 3000);
 
       } else if( value.value.length === 0 ) {
          
          value.focus();
-         this.showAlert('Value must have at least 1 digit', value);
+         this.showAlert('Value must have at least 1 digit', 3000);
 
       } else {
 
@@ -181,7 +222,12 @@ export class AppController {
       return false;
    }
 
-   showAlert (msg) {
+   /**
+    * 
+    * @param {string} msg message to be displayed in the alert box.
+    * @usage showAlert('this field is required') - displays the message for 3 seconds. 
+    */
+   showAlert (msg, duration = 3000) {
 
       const alertBox = $(this.DOM.alertBox);
       alertBox.textContent = msg;
@@ -190,35 +236,48 @@ export class AppController {
       setTimeout(() => {
          alertBox.style.display = 'none';
          alertBox.textContent = '';
-      }, 3000);
+      }, duration);
    }
 }
 
-function formatNumber (number, type = '') {
+/**
+ * @param {number} n to be formatted as currency.
+ * @param {string} type 'inc' | 'exp' type of the transaction being formatted. Default is ''. 
+ * @returns a formatted string representation of the number passed in the paramenter.
+ * @usage formatNumber (3000, 'inc') returns '+3,000.00'.
+ */
+function formatNumber (n, type = '') {
 
-   
-   if(parseFloat(number) === 0) {
+   if(type === 'pct') { 
+      return parseFloat(n) > 0 ? parseFloat(n).toFixed(1) + '%' : '---';
+   }
+
+   if(parseFloat(n) === 0) {
       return '0.00';
    }
    
    // convert to absolute float with 2 decimal places. 
-   number = Math.abs(parseFloat(number)).toFixed(2).toString();
+   let number = Math.abs(parseFloat(n)).toFixed(2).toString();
    
    // Formatting numbers based on the REGEX solution proposed by Scaramouche 
    // here: https://stackoverflow.com/questions/49261076/applying-currency-format-using-replace-and-a-regular-expression
    // to insert ',' every 3 digits and '.' before the decimal if needed.
    number = number.replace(/(\d)(?=(\d{3})+(\.(\d){0,2})*$)/g, '$1,');
    
-   // return the number with a "+" or "-" sign depending on type (inc / exp)
+   // return the number with a "+" or "-" sign depending on type (inc / exp / pct)
    return  (type === 'exp'? '- ' : '+ ') + number;
 }
 
+/**
+ * @param {String identifier} id or class of the element.
+ * @returns the Node containing  the given id or class (returns the first node occurence in cases of multiple elements containing the same class name). 
+ */
 function $(identifier) {
    return document.querySelector(identifier);
 }
 
 const date = new Date();
 const year = date.getFullYear();
-const month = date.getFullYear();
+const month = date.getMonth();
 const app = new AppController(year, month);
 app.init();
