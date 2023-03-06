@@ -156,31 +156,39 @@ export class AppController {
    }
 
    displayPercentages () {
-      const { budget } = this;
+      const { budget, netIncome, pct, income, expenses } = this;
       const percentages = budget.calcPercentages();
 
       if (budget.getBudget().total >= 0) {
-         this.netIncome.textContent = formatNumber(budget.getBudget().total, 'inc');
-         this.netIncome.classList.add('inc-color');
-         this.netIncome.classList.remove('exp-color');
+         netIncome.textContent = formatNumber(budget.getBudget().total, 'inc');
+         netIncome.classList.add('inc-color');
+         netIncome.classList.remove('exp-color');
       }
       else {
-         this.netIncome.textContent = formatNumber(budget.getBudget().total, 'exp');
-         this.netIncome.classList.add('exp-color');
-         this.netIncome.classList.remove('inc-color');
+         netIncome.textContent = formatNumber(budget.getBudget().total, 'exp');
+         netIncome.classList.add('exp-color');
+         netIncome.classList.remove('inc-color');
       }
 
-      this.income.textContent = formatNumber(budget.getBudget().inc, 'inc');
-      this.expenses.textContent = formatNumber(budget.getBudget().exp, 'exp');
-      this.pct.textContent = formatNumber(percentages.globalPercentage, 'pct');
+      income.textContent = formatNumber(budget.getBudget().inc, 'inc');
+      expenses.textContent = formatNumber(budget.getBudget().exp, 'exp');
+      pct.textContent = formatNumber(percentages.globalPercentage, 'pct');
+      
+      this.togglePercentage(pct);
 
       percentages.all.inc.map((item) => {
          $('#inc-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
+         this.togglePercentage($('#inc-' + item.id).children[2]);
       });
 
       percentages.all.exp.map((item) => {
          $('#exp-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
+         this.togglePercentage($('#exp-' + item.id).children[2]);
       });
+   }
+
+   togglePercentage(element) {
+      element.style.opacity = element.textContent === '---' ? 0.5 : 1;
    }
 
    clearForm () {

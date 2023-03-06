@@ -25,7 +25,7 @@
    --list-item-light-bg-color: var(--main-bg-color);
    --list-item-divider-color: #e0e0e0;
    --border-radius: 4px;
-   --animation-curve: cubic-bezier(.52,.02,.44,.98)
+   --animation-curve: cubic-bezier(.52,.02,.44,.98);
 }
 
 * {
@@ -136,8 +136,9 @@ header {
 
 .summary-exp-pct {
    font-size: 0.7em;
-   color:var(--header-color);
+   color: var(--header-color);
    background-color: #522d2d;
+   opacity: 0.5;
 }
 
 .inc-pct {
@@ -272,7 +273,6 @@ header {
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   
 }
 
 #list-header {
@@ -282,7 +282,7 @@ header {
 
 #list {
    width: 50%;
-   margin:0px 20px 250px 20px;
+   margin:0px 20px 25px 20px;
 }
 
 /* List Items */
@@ -307,7 +307,7 @@ header {
 
 .list-item:hover > div:nth-child(1),
 .list-item:hover > div:nth-child(2) {
-   width: calc(50% - 45px);
+   width: calc(50% - 48px);
 }
 
 .list-item:hover .item-delete-btn {
