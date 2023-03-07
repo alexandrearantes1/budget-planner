@@ -190,7 +190,7 @@ export class AppController {
       pct.textContent = formatNumber(percentages.globalPercentage, 'pct');
       
       
-      this.togglePercentage(pct);
+      // this.togglePercentage(pct);
 
       // Update percentage for each income. 
       percentages.all.inc.map((item) => {

@@ -40,7 +40,7 @@
 body {
    color: var(--main-color);
    background: var(--main-bg-color);
-   font-family: Genos, sans-serif;
+   font-family: 'Genos', sans-serif;
    font-size:1.3em;
    min-width: 400px;
 }
@@ -175,7 +175,7 @@ header {
    font-size: 0.7em;
    color: var(--header-color);
    background-color: var(--summary-pct-bg-color);
-   opacity: 0.5;
+   /* opacity: 0.5; */
 }
 
 .inc-pct {
