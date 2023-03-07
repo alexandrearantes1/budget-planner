@@ -25,7 +25,7 @@
    --list-item-dark-bg-color: #f3f3f3;
    --list-item-light-bg-color: var(--main-bg-color);
    --list-item-divider-color: #e0e0e0;
-   --border-radius: 4px;
+   --border-radius: 10px;
    --summary-box-border-radius: 10px;
    --animation-curve: cubic-bezier(.52,.02,.44,.98);
 }
