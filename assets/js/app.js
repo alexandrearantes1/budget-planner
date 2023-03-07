@@ -102,7 +102,7 @@ export class AppController {
       const { DOM } = this;
 
       const type = getElement(DOM.addItemType).checked ? 'inc' : 'exp';
-      const description = getElement(DOM.addItemDesc).value;
+      const description = getElement(DOM.addItemDesc).value.toLowerCase();
       const value = parseFloat(getElement(DOM.addItemValue).value);
 
       const transaction = this.budget.addTransaction( type, description, value );
