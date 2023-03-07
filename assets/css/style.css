@@ -3,7 +3,7 @@
 :root {
 
    --main-bg-color: #f6f6f6;
-   --main-color: #626262;
+   --main-color: #595959;
 
    --header-bg-color: #646869;
    --header-color: #ececec;
@@ -93,8 +93,8 @@ header {
    width: 400px;
    height: 200px;
    margin: 0 auto auto 0;
-   padding-left: 30px;
-   border: 1px solid rgb(143, 143, 143);
+   padding-left: 32px;
+   border: 1px solid var(--main-color);
    background: var(--summary-bg-color);
    border-radius: 15px;
    
@@ -102,14 +102,19 @@ header {
 
 #month {
    position: absolute;
-   width:200px;
-   top:185px;
-   left:172px;
-   opacity: 0.6;
-   color: #182d32;
+   width:198px;
+   height:32px;
+   top:182px;
+   left:166px;
+   color: var(--header-color);
+   background-color: var(--main-color);
+   border-start-start-radius:12px;
+   border-start-end-radius:12px;
    font-size: 1.1em;
    font-family: Genos, sans-serif;
-   text-align: center;
+   display:flex;
+   justify-content: center;
+   align-items: center;
    transform: translateX(-150px) rotate(-90deg);
    transform-origin:left center;
 }
@@ -429,8 +434,9 @@ header {
    }
 
    #month {
+      width: 158px;
       font-size:1em;
-      top:168px;
+      top:142px;
    }
 
    #summary-box-container {
