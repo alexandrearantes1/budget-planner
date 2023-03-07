@@ -78,7 +78,7 @@ export class AppController {
 
       // Listener for keyboard controls 
       document.addEventListener('keydown', (event) => {
-
+         
          if( event.code === 'ArrowUp' || event.code === 'ArrowUp' ) {
 
             this.changeType('inc');
@@ -231,6 +231,7 @@ export class AppController {
 
       const description = getElement(this.DOM.addItemDesc);
       const value = getElement(this.DOM.addItemValue);
+      const parsedValue = parseFloat(value.value);
 
       if (description.value.length < this.DESC_MIN_CHARS) {
 
@@ -242,6 +243,10 @@ export class AppController {
          value.focus();
          this.showAlert('Value must have at least 1 digit', 3000);
 
+      }
+      else if (parsedValue < 0 || parsedValue > 999999999.99) {
+         value.focus();
+         this.showAlert('Value range must be between 0.01 and 999,999,999.99', 3000);
       } else {
 
          return true;
