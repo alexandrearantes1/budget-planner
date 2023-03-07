@@ -25,7 +25,8 @@
    --list-item-dark-bg-color: #f3f3f3;
    --list-item-light-bg-color: var(--main-bg-color);
    --list-item-divider-color: #e0e0e0;
-   --border-radius: 10px;
+
+   --global-border-radius: 10px;
    --summary-box-border-radius: 10px;
    --animation-curve: cubic-bezier(.52,.02,.44,.98);
 }
@@ -39,7 +40,6 @@
 body {
    color: var(--main-color);
    background: var(--main-bg-color);
-
    font-family: Genos, sans-serif;
    font-size:1.3em;
    min-width: 400px;
@@ -89,15 +89,13 @@ header {
    flex-direction: column;
    justify-content: space-evenly;
    align-items: center;
-
    width: 400px;
    height: 200px;
    margin: 0 auto auto 0;
    padding-left: 32px;
    border: 1px solid var(--main-color);
    background: var(--summary-bg-color);
-   border-radius: 15px;
-   
+   border-radius: 15px;  
 }
 
 #month {
@@ -141,7 +139,6 @@ header {
    text-transform: uppercase;
 }
 
-
 .summary-box:nth-child(1) {
    border-start-start-radius: var(--summary-box-border-radius);
    border-start-end-radius: var(--summary-box-border-radius);
@@ -179,7 +176,6 @@ header {
    color: var(--header-color);
    background-color: var(--summary-pct-bg-color);
    opacity: 0.5;
-   
 }
 
 .inc-pct {
@@ -260,7 +256,7 @@ header {
 
 #add-item input {
    padding: 10px;
-   border-radius: var(--border-radius);
+   border-radius: var(--global-border-radius);
    background-color: rgb(255, 255, 255);
 }
 
@@ -279,7 +275,7 @@ header {
 #add-item button {
    width:70px;
    padding: 10px 10px;
-   border-radius: var(--border-radius);
+   border-radius: var(--global-border-radius);
 }
 
 #add-item button:hover {
@@ -300,7 +296,7 @@ header {
    border: 1px solid var(--pct-expense-color);
    padding: 10px;
    margin: 5px 0px;
-   border-radius: var(--border-radius);
+   border-radius: var(--global-border-radius);
    color: white;
    background-color: rgb(181, 0, 0);/* var(--pct-expense-bg-color);*/
    font-size: 0.8em;
@@ -425,8 +421,7 @@ header {
    #summary {
       width: 320px;
       height: 160px;
-      justify-content: space-evenly;
-      
+      justify-content: space-evenly;  
    }
 
    #net-income {
@@ -449,10 +444,8 @@ header {
    .summary-box {
       font-size:0.8em;
       width:100%;
-      padding:10px;
-      
+      padding:10px;  
    }
-
 
    #add-item {
       display: flex;

@@ -15,7 +15,6 @@ export class Budget {
    }
 
    /**
-    * @author Alexandre Arantes
     * @param {object} obj A MonthlyBudget object serialized with JSON.stringify() and deserialized with JSON.parse(). 
     * @returns an instance of the MonthlyBudget Class. 
     */
@@ -36,7 +35,6 @@ export class Budget {
    }
    
    /**
-    * @author Alexandre Arantes
     * @param {string} type accepts 'inc' or 'exp'.
     * @returns Total sum of transactions of the give type.
     */
@@ -50,7 +48,6 @@ export class Budget {
    }
 
    /**
-    * @author Alexandre Arantes
     * @description Calculates percentages for budget total expenses vs total income, 
     * and the percentage of each transaction vs total income.
     */
@@ -81,8 +78,7 @@ export class Budget {
    }
 
    /**
-    * @author Alexandre Arantes
-    * @returns A map containing all the percentages for all transactions
+    * @returns A map containing percentages for all transactions
     */
    getPercentages() {
 
@@ -99,7 +95,7 @@ export class Budget {
    }
 
    addTransaction (type, description, value) {   
-      // Gets an unique incremental ID for the new transaction of a given type.
+      // Generates an unique incremental ID for the new transaction of a given type.
       let id;
       if(this.allTransactions[type].length === 0) {
          id = 1;
@@ -118,7 +114,6 @@ export class Budget {
    }
 
    /**
-    * 
     * @param {number} id 
     * @param {string} type 'inc' or 'exp'.
     * @description Removes a transaction from the list of transactions of a given type.

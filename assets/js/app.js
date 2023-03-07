@@ -10,6 +10,7 @@ export class AppController {
       this.months = ["January", "February", "March", "April", "May", "June",
                      "July", "August", "September", "November", "December"];
 
+      // List of all DOM elements for easy access in JS. 
       this.DOM = {
                   month: '#month',
               netIncome: '#net-income',
@@ -38,11 +39,11 @@ export class AppController {
       // Transactions list
       this.header        = getElement(this.DOM.listHeader);
       this.listContainer = getElement(this.DOM.listContainer);
-      this.list = getElement(this.DOM.list);
+      this.list          = getElement(this.DOM.list);
    }
 
    setupListeners () {
-      const { budget, DOM } = this;
+      const { DOM } = this;
       
       // limits user input to numbers. 
       getElement(DOM.addItemValue).addEventListener('input', function () {
@@ -71,6 +72,7 @@ export class AppController {
       
       // Listener for click on addItemButton
       getElement(DOM.addItemButton).addEventListener('click',  () => {
+
          if( this.validateForm() ) {
             this.addTransaction();
          }
@@ -78,19 +80,15 @@ export class AppController {
 
       // Listener for keyboard controls 
       document.addEventListener('keydown', (event) => {
-         
-         if( event.code === 'ArrowUp' || event.code === 'ArrowUp' ) {
 
+         if( event.code === 'ArrowUp' || event.code === 'ArrowUp' ) {
             this.changeType('inc');
          }
          else if( event.code === 'ArrowDown' || event.key === 'ArrowDown' ) {
-
             this.changeType('exp');
          } 
          else if ( event.code === 'Enter' || event.key === 'Enter' ) {
-
             if( this.validateForm() ) {
-
                this.addTransaction();
             }
          }
@@ -113,12 +111,12 @@ export class AppController {
 
       const { DOM } = this;
 
-      const type = getElement(DOM.addItemType).checked ? 'inc' : 'exp';
+      const type        = getElement(DOM.addItemType).checked ? 'inc' : 'exp';
       const description = getElement(DOM.addItemDesc).value.toLowerCase();
-      const value = parseFloat(getElement(DOM.addItemValue).value);
+      const value       = parseFloat(getElement(DOM.addItemValue).value);
 
       const transaction = this.budget.addTransaction( type, description, value );
-      const id = `${ type }-${ transaction.id }`;
+      const id          = `${ type }-${ transaction.id }`;
       
       if(this.header.classList.contains('hidden')) {
          this.header.classList.remove('hidden');
@@ -146,7 +144,7 @@ export class AppController {
          }
       });
       this.clearForm();
-      this.displayPercentages();
+      this.updateBudget();
    }
 
    removeTransaction(id) {
@@ -154,22 +152,27 @@ export class AppController {
       const shortID = id.substr(4, id.length-1);
       const type = id.substr(0, 3);
 
+      // Remove transaction from the budget.
       this.budget.removeTransaction(shortID, type);
 
+      // Remove transaction from the UI.
       const element = document.querySelector('#' + id);
-         this.list.removeChild(element);
+      this.list.removeChild(element);
       
+      // Hide "Transactions" heading if transaction list is empty. 
       if (!this.list.children.length) {
-   
          this.header.classList.add('hidden');
       }
-      this.displayPercentages();   
+
+      this.updateBudget();   
    }
 
-   displayPercentages () {
+   updateBudget () {
+
       const { budget, netIncome, pct, income, expenses } = this;
       const percentages = budget.calcPercentages();
-
+      
+      // Change color of net income if positive or negative.
       if (budget.getBudget().total >= 0) {
          netIncome.textContent = formatNumber(budget.getBudget().total, 'inc');
          netIncome.classList.add('inc-color');
@@ -181,23 +184,28 @@ export class AppController {
          netIncome.classList.remove('inc-color');
       }
 
+      // Update summary values.
       income.textContent = formatNumber(budget.getBudget().inc, 'inc');
       expenses.textContent = formatNumber(budget.getBudget().exp, 'exp');
       pct.textContent = formatNumber(percentages.globalPercentage, 'pct');
       
+      
       this.togglePercentage(pct);
 
+      // Update percentage for each income. 
       percentages.all.inc.map((item) => {
          getElement('#inc-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
          this.togglePercentage(getElement('#inc-' + item.id).children[2]);
       });
 
+      // Update percentage for each expense.
       percentages.all.exp.map((item) => {
          getElement('#exp-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
          this.togglePercentage(getElement('#exp-' + item.id).children[2]);
       });
    }
 
+   // Toggle opacity on percentage to 50% if value is 0 or invalid.
    togglePercentage(element) {
       element.style.opacity = element.textContent === '---' ? 0.5 : 1;
    }
@@ -209,8 +217,6 @@ export class AppController {
       getElement(DOM.addItemValue).value = '';
       getElement(DOM.addItemDesc).focus();
    }
-
-   
 
    changeType (type) {
 
@@ -224,7 +230,6 @@ export class AppController {
          checkbox.checked = type === 'inc' ? true  : false;
          checkbox.dispatchEvent(new Event("change"));         
       }
-
    }
 
    validateForm () {
@@ -234,7 +239,7 @@ export class AppController {
       const parsedValue = parseFloat(value.value);
 
       if (description.value.length < this.DESC_MIN_CHARS) {
-
+         
          description.focus();
          this.showAlert(`Description must have at least ${this.DESC_MIN_CHARS} characters.`, 3000);
 
@@ -245,8 +250,10 @@ export class AppController {
 
       }
       else if (parsedValue < 0 || parsedValue > 999999999.99) {
+
          value.focus();
          this.showAlert('Value range must be between 0.01 and 999,999,999.99', 3000);
+
       } else {
 
          return true;
@@ -255,7 +262,6 @@ export class AppController {
    }
 
    /**
-    * 
     * @param {string} msg message to be displayed in the alert box.
     * @usage showAlert('this field is required') - displays the message for 3 seconds. 
     */

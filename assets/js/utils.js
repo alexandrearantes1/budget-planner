@@ -17,19 +17,16 @@ export function formatNumber (n, type = '') {
    // convert to absolute float with 2 decimal places. 
    let number = Math.abs(parseFloat(n)).toFixed(2).toString();
    
-   // Formatting numbers based on the REGEX solution proposed by Scaramouche 
-   // here: https://stackoverflow.com/questions/49261076/applying-currency-format-using-replace-and-a-regular-expression
-   // to insert ',' every 3 digits and '.' before the decimal if needed.
    number = number.replace(/(\d)(?=(\d{3})+(\.(\d){0,2})*$)/g, '$1,');
    
-   // return the number with a "+" or "-" sign depending on type (inc / exp / pct)
+   // return the value with a "+" or "-" sign depending on type (inc / exp)
    return  (type === 'exp'? '-' : '+') + number;
 }
 
 
 /**
  * @param {string} id or class of the element.
- * @returns the Node containing the given id or class (returns the first node occurence if multiple elements contain the same class name). 
+ * @returns the html node containing the given id or class (returns the first node occurence if multiple elements contain the same class name). 
  */
 export function getElement (identifier) {
    return document.querySelector(identifier);
