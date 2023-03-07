@@ -1,10 +1,9 @@
 import { Budget } from './budget.js';
-// import { UIController } from './ui-controller.js';
+import { formatNumber, getElement } from './utils.js';
 
 export class AppController {
    constructor (year, month) {
       
-
       this.DESC_MIN_CHARS = 3; 
       this.budget = new Budget(year, month);
 
@@ -30,30 +29,30 @@ export class AppController {
 
       // storing up html elements to be used accross the class. 
       // Summary box
-      this.month     = $(this.DOM.month);
-      this.netIncome = $(this.DOM.netIncome);
-      this.income    = $(this.DOM.incomeValue);
-      this.expenses  = $(this.DOM.expensesValue);
-      this.pct       = $(this.DOM.expPct);
+      this.month     = getElement(this.DOM.month);
+      this.netIncome = getElement(this.DOM.netIncome);
+      this.income    = getElement(this.DOM.incomeValue);
+      this.expenses  = getElement(this.DOM.expensesValue);
+      this.pct       = getElement(this.DOM.expPct);
       
       // Transactions list
-      this.header        = $(this.DOM.listHeader);
-      this.listContainer = $(this.DOM.listContainer);
-      this.list = $(this.DOM.list);
+      this.header        = getElement(this.DOM.listHeader);
+      this.listContainer = getElement(this.DOM.listContainer);
+      this.list = getElement(this.DOM.list);
    }
 
    setupListeners () {
       const { budget, DOM } = this;
       
       // limits user input to numbers. 
-      $(DOM.addItemValue).addEventListener('input', function () {
+      getElement(DOM.addItemValue).addEventListener('input', function () {
          this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
       });
 
-      $(DOM.addItemType).addEventListener('change', (event) => {
+      getElement(DOM.addItemType).addEventListener('change', (event) => {
 
          // List of all form elements that must change color scheme.
-         const elements = [$(DOM.addItemDesc),  $(DOM.addItemValue), $(DOM.addItemButton)];
+         const elements = [getElement(DOM.addItemDesc),  getElement(DOM.addItemValue), getElement(DOM.addItemButton)];
 
          for ( let element of elements ) {
             
@@ -71,7 +70,7 @@ export class AppController {
       });
       
       // Listener for click on addItemButton
-      $(DOM.addItemButton).addEventListener('click',  () => {
+      getElement(DOM.addItemButton).addEventListener('click',  () => {
          if( this.validateForm() ) {
             this.addTransaction();
          }
@@ -102,9 +101,9 @@ export class AppController {
 
       const { DOM } = this;
 
-      const type = $(DOM.addItemType).checked ? 'inc' : 'exp';
-      const description = $(DOM.addItemDesc).value;
-      const value = parseFloat($(DOM.addItemValue).value);
+      const type = getElement(DOM.addItemType).checked ? 'inc' : 'exp';
+      const description = getElement(DOM.addItemDesc).value;
+      const value = parseFloat(getElement(DOM.addItemValue).value);
 
       const transaction = this.budget.addTransaction( type, description, value );
       const id = `${ type }-${ transaction.id }`;
@@ -124,7 +123,7 @@ export class AppController {
       
       this.list.insertAdjacentHTML('afterbegin', node);
 
-      $(`#${ id }-delete-btn`).addEventListener('click', (event) => {
+      getElement(`#${ id }-delete-btn`).addEventListener('click', (event) => {
          
          const id = event.target.tagName.toLowerCase() === 'img' ? 
                     event.target.parentNode.parentNode.id : 
@@ -177,13 +176,13 @@ export class AppController {
       this.togglePercentage(pct);
 
       percentages.all.inc.map((item) => {
-         $('#inc-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
-         this.togglePercentage($('#inc-' + item.id).children[2]);
+         getElement('#inc-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
+         this.togglePercentage(getElement('#inc-' + item.id).children[2]);
       });
 
       percentages.all.exp.map((item) => {
-         $('#exp-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
-         this.togglePercentage($('#exp-' + item.id).children[2]);
+         getElement('#exp-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
+         this.togglePercentage(getElement('#exp-' + item.id).children[2]);
       });
    }
 
@@ -194,21 +193,18 @@ export class AppController {
    clearForm () {
       const { DOM } = this;
 
-      $(DOM.addItemDesc).value = '';
-      $(DOM.addItemValue).value = '';
-      $(DOM.addItemDesc).focus();
+      getElement(DOM.addItemDesc).value = '';
+      getElement(DOM.addItemValue).value = '';
+      getElement(DOM.addItemDesc).focus();
    }
 
-   init () {
-      window.addEventListener('load', () => { this.setupListeners() });
-      this.month.textContent = this.months[this.budget.month];
-   }
+   
 
    changeType (type) {
 
       const { DOM } = this;
 
-      const checkbox = $(DOM.addItemType);
+      const checkbox = getElement(DOM.addItemType);
       let state = checkbox.checked ? 'inc' : 'exp';
 
       if ( type != state ) {
@@ -221,8 +217,8 @@ export class AppController {
 
    validateForm () {
 
-      const description = $(this.DOM.addItemDesc);
-      const value = $(this.DOM.addItemValue);
+      const description = getElement(this.DOM.addItemDesc);
+      const value = getElement(this.DOM.addItemValue);
 
       if (description.value.length < this.DESC_MIN_CHARS) {
 
@@ -248,7 +244,7 @@ export class AppController {
     */
    showAlert (msg, duration = 3000) {
 
-      const alertBox = $(this.DOM.alertBox);
+      const alertBox = getElement(this.DOM.alertBox);
       alertBox.textContent = msg;
       alertBox.style.display = 'block';
       
@@ -257,42 +253,11 @@ export class AppController {
          alertBox.textContent = '';
       }, duration);
    }
-}
 
-/**
- * @param {number} n to be formatted as currency.
- * @param {string} type 'inc' | 'exp' type of the transaction being formatted. Default is ''. 
- * @returns a formatted string representation of the number passed in the paramenter.
- * @usage formatNumber (3000, 'inc') returns '+3,000.00'.
- */
-function formatNumber (n, type = '') {
-
-   if(type === 'pct') { 
-      return parseFloat(n) > 0 ? parseFloat(n).toFixed(1) + '%' : '---';
+   init () {
+      window.addEventListener('load', () => { this.setupListeners() });
+      this.month.textContent = `${ this.months[this.budget.month] } ${ this.budget.year }`;
    }
-
-   if(parseFloat(n) === 0) {
-      return '0.00';
-   }
-   
-   // convert to absolute float with 2 decimal places. 
-   let number = Math.abs(parseFloat(n)).toFixed(2).toString();
-   
-   // Formatting numbers based on the REGEX solution proposed by Scaramouche 
-   // here: https://stackoverflow.com/questions/49261076/applying-currency-format-using-replace-and-a-regular-expression
-   // to insert ',' every 3 digits and '.' before the decimal if needed.
-   number = number.replace(/(\d)(?=(\d{3})+(\.(\d){0,2})*$)/g, '$1,');
-   
-   // return the number with a "+" or "-" sign depending on type (inc / exp / pct)
-   return  (type === 'exp'? '-' : '+') + number;
-}
-
-/**
- * @param {String identifier} id or class of the element.
- * @returns the Node containing  the given id or class (returns the first node occurence in cases of multiple elements containing the same class name). 
- */
-function $(identifier) {
-   return document.querySelector(identifier);
 }
 
 const date = new Date();

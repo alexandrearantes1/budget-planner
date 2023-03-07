@@ -10,7 +10,7 @@
    <!-- Tooltip from Reinhard Schnetzinger https://codepen.io/reiinii1/pen/aPGXEa -->
    <link rel="stylesheet" href="assets/css/tooltip.css">
 
-   <!-- /* Income / Expense toggle button based on Gareth McKinley's https://codepen.io/garetmckinley/pen/YmxYZr */ -->
+   <!-- Income / Expense toggle checkbox based on Gareth McKinley's https://codepen.io/garetmckinley/pen/YmxYZr -->
    <link rel="stylesheet" href="assets/css/toggle.css">
    
    <title>Budget Planner</title>
@@ -18,32 +18,34 @@
 
 <body>
    <header>
-      <!-- Summary Income / Epenses -->
-      <div class="logo">
-         <img src="assets/images/logo.png" alt="logo">
-      </div>
-      <div id="summary">
-         <div id="month">February</div>
-         <div id="net-income" class="inc-color">0.00</div>
-         <div id="summary-box-container">
-            <div class="summary-box inc-bg-color">
-               <div class="desc inc-desc">Income</div>
-               <div id="income-value" class="value inc-value">0.00</div>
-               <div class="pct"></div>
-            </div>
-            <div class="summary-box exp-bg-color">
-               <div class="desc exp-description">Expenses</div>
-               <div id="expenses-value" class="value exp-value">0.00</div>
-               <div id="exp-pct" class="pct summary-exp-pct">---</div>
+      <div class="header-container">
+         <div class="logo">
+            <img src="assets/images/logo.png" width="150" height="112" alt="logo">
+         </div>
+         <!-- Summary: Month, Net Income, Income / Expenses -->
+         <div id="summary">
+            <div id="month"></div>
+            <div id="net-income" class="inc-color">0.00</div>
+            <div id="summary-box-container">
+               <div class="summary-box inc-bg-color">
+                  <div class="desc inc-desc">Income</div>
+                  <div id="income-value" class="value inc-value">0.00</div>
+                  <div class="pct"></div>
+               </div>
+               <div class="summary-box exp-bg-color">
+                  <div class="desc exp-description">Expenses</div>
+                  <div id="expenses-value" class="value exp-value">0.00</div>
+                  <div id="exp-pct" class="pct summary-exp-pct">---</div>
+               </div>
             </div>
          </div>
       </div>
    </header>
-   <!-- Add new Item -->
+   <!-- Add new transaction form -->
    <div id="add-item">
       <label class="toggle-control"
             data-tooltip="Tip: use keyboard &uarr; and &darr; to switch between income / expense" 
-            data-tooltip-location="bottom">
+            data-tooltip-location="bottom" aria-label="transaction type">
          <input type="checkbox" checked="checked" class="transaction-type" name="type" id="type">
          <span class="control"></span>
       </label>
