@@ -95,6 +95,18 @@ export class AppController {
             }
          }
      });
+
+     window.addEventListener('resize',  () => { this.onResize() });
+   }
+
+   onResize () {
+
+      if(window.innerWidth <= 768) {
+         getElement(this.DOM.addItemButton).textContent = 'Add Transaction';
+      }
+      else {
+         getElement(this.DOM.addItemButton).innerHTML = '&#x23CE;';
+      }
    }
 
    addTransaction() {
@@ -255,7 +267,10 @@ export class AppController {
    }
 
    init () {
-      window.addEventListener('load', () => { this.setupListeners() });
+      window.addEventListener('load', () => { 
+         this.setupListeners(); 
+         this.onResize(); 
+      });
       this.month.textContent = `${ this.months[this.budget.month] } ${ this.budget.year }`;
    }
 }
