@@ -100,14 +100,15 @@ header {
 
 #month {
    position: absolute;
-   width:199px;
+   width:196px;
    height:32px;
-   top:182px;
-   left:166px;
+   top:181px;
+   left:167px;
    color: var(--header-color);
    background-color: var(--main-color);
-   border-start-start-radius:12px;
-   border-start-end-radius:12px;
+   border-start-start-radius:13px;
+   border-start-end-radius:13px;
+   border:1px solid  var(--main-color);
    font-size: 1.1em;
    font-family: Genos, sans-serif;
    display:flex;
@@ -175,24 +176,28 @@ header {
    font-size: 0.7em;
    color: var(--header-color);
    background-color: var(--summary-pct-bg-color);
-   /* opacity: 0.5; */
+   opacity: 0.5;
 }
 
 .inc-pct {
    color: var(--pct-income-color);
    background: var(--pct-income-bg-color);
+   border:1px solid var(--pct-income-bg-color);
 }
 
 .exp-pct {
    color: var(--pct-expense-color);
    background: var(--pct-expense-bg-color);
+   border:1px solid var(--pct-expense-bg-color);
 }
 
 .inc-bg-color {
+   border: 1px solid var(--income-color);
    background-color: var(--income-color);
 }
 
 .exp-bg-color {
+   border: 1px solid var(--expense-color);
    background-color: var(--expense-color);
 }
 
@@ -429,9 +434,9 @@ header {
    }
 
    #month {
-      width: 158px;
+      width: 156px;
       font-size:1em;
-      top:142px;
+      top:141px;
    }
 
    #summary-box-container {
@@ -498,5 +503,12 @@ header {
    [data-tooltip]:before,
    [data-tooltip]:after {
       display: none;
+   }
+}
+
+@media print {
+   .noprint {
+      visibility: hidden;
+      height:0;
    }
 }

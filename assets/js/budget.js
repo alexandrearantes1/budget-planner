@@ -11,7 +11,7 @@ export class Budget {
          inc: [],
          exp: [],
          itemPositions:[]
-      }
+      };
    }
 
    /**
@@ -31,7 +31,7 @@ export class Budget {
            inc: incomeTotal,
            exp: expensesTotal,
          total: incomeTotal - expensesTotal
-      }
+      };
    }
    
    /**
@@ -56,11 +56,11 @@ export class Budget {
       const { allTransactions } = this;
       const totalIncome = this.getTotalByType('inc');
       if(totalIncome === 0) {
-         allTransactions.exp.map((item) => { item.percentage = 0 });
+         allTransactions.exp.map((item) => { item.percentage = 0; });
          return {
             globalPercentage: '---',
             all: allTransactions
-         }
+         };
       }
 
       allTransactions.inc.map(transaction => {
@@ -74,7 +74,7 @@ export class Budget {
       return {
          globalPercentage: this.getTotalByType('exp') / this.getTotalByType('inc') * 100,
          all: allTransactions
-      }
+      };
    }
 
    /**

@@ -19,7 +19,7 @@
    <header>
       <div class="header-container">
          <div class="logo">
-            <img src="assets/images/logo.png" width="150" height="112" alt="logo">
+            <img src="assets/images/logo.webp" width="150" height="112" alt="logo">
          </div>
          <!-- Summary: Month, Net Income, Income / Expenses -->
          <div id="summary">
@@ -34,14 +34,14 @@
                <div class="summary-box exp-bg-color">
                   <div class="desc exp-description">Expenses</div>
                   <div id="expenses-value" class="value exp-value">0.00</div>
-                  <div id="exp-pct" class="pct summary-exp-pct">55&percnt;</div>
+                  <div id="exp-pct" class="pct summary-exp-pct">---</div>
                </div>
             </div>
          </div>
       </div>
    </header>
    <!-- Add new transaction form -->
-   <div id="add-item">
+   <div id="add-item" class="noprint">
       <label class="toggle-control"
             data-tooltip="Tip: use keyboard &uarr; and &darr; to switch between income / expense" 
             data-tooltip-location="bottom" aria-label="transaction type">
@@ -65,28 +65,7 @@
    <section id="list-container">
       <h2 id="list-header" class="hidden">Transactions</h2>
        <div id="list">
-         <div class="list-item transparent" id="inc-1">
-            <div class="description">Salary</div>
-            <div class="value inc-color"><span>2,000.00</span></div>
-            <div class="pct inc-pct">100&percnt;</div>
-            <button id="inc-1-delete-btn" class="item-delete-btn" aria-label="Delete item"><img src="assets/images/delete-btn.svg" alt="delete"></button>
-         </div>
-
-         <div class="list-item transparent" id="exp-1">
-            <div class="description">Rent</div>
-            <div class="value exp-color"><span>1,000.00</span></div>
-            <div class="pct exp-pct">50&percnt;</div>
-            <button id="exp-1-delete-btn" class="item-delete-btn" aria-label="Delete item"><img src="assets/images/delete-btn.svg" alt="delete"></button>
-         </div>
-
-         <div class="list-item transparent" id="exp-2">
-            <div class="description">Electricity</div>
-            <div class="value exp-color"><span>100.00</span></div>
-            <div class="pct exp-pct">5&percnt;</div>
-            <button id="exp-2-delete-btn" class="item-delete-btn" aria-label="Delete item"><img src="assets/images/delete-btn.svg" alt="delete"></button>
-         </div>
-
-
+         
       </div>
    </section>
    <script type="module" src="assets/js/app.js"></script>

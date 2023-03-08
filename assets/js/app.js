@@ -50,10 +50,14 @@ export class AppController {
          this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
       });
 
-      getElement(DOM.addItemType).addEventListener('change', (event) => {
+      getElement(DOM.addItemType).addEventListener('change', () => {
 
          // List of all form elements that must change color scheme.
-         const elements = [getElement(DOM.addItemDesc),  getElement(DOM.addItemValue), getElement(DOM.addItemButton)];
+         const elements = [
+            getElement(DOM.addItemDesc),  
+            getElement(DOM.addItemValue), 
+            getElement(DOM.addItemButton)
+         ];
 
          for ( let element of elements ) {
             
@@ -94,7 +98,7 @@ export class AppController {
          }
      });
 
-     window.addEventListener('resize',  () => { this.onResize() });
+     window.addEventListener('resize',  () => { this.onResize(); });
    }
 
    onResize () {
@@ -128,7 +132,9 @@ export class AppController {
             <div class="description">${ description }</div>
             <div class="value ${ type }-color"><span>${ formatNumber(value, type) }</span></div>
             <div class="pct ${ type }-pct">---</div>
-            <button id="${ id }-delete-btn" class="item-delete-btn" aria-label="Delete item"><img src="assets/images/delete-btn.svg" alt="delete"></button>
+            <button id="${ id }-delete-btn" class="item-delete-btn" aria-label="Delete item">
+               <img src="assets/images/delete-btn.svg" alt="delete">
+            </button>
          </div>`;
       
       this.list.insertAdjacentHTML('afterbegin', node);
@@ -189,18 +195,21 @@ export class AppController {
       expenses.textContent = formatNumber(budget.getBudget().exp, 'exp');
       pct.textContent = formatNumber(percentages.globalPercentage, 'pct');
       
-      
-      // this.togglePercentage(pct);
+      this.togglePercentage(pct);
 
       // Update percentage for each income. 
       percentages.all.inc.map((item) => {
-         getElement('#inc-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
+         getElement('#inc-' + item.id).children[2]
+            .textContent = formatNumber(item.percentage, 'pct');
+
          this.togglePercentage(getElement('#inc-' + item.id).children[2]);
       });
 
       // Update percentage for each expense.
       percentages.all.exp.map((item) => {
-         getElement('#exp-' + item.id).children[2].textContent = formatNumber(item.percentage, 'pct');
+         getElement('#exp-' + item.id).children[2]
+            .textContent = formatNumber(item.percentage, 'pct');
+
          this.togglePercentage(getElement('#exp-' + item.id).children[2]);
       });
    }
