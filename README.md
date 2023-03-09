@@ -18,14 +18,16 @@ This web app was targeted to anyone interested in creating and/or managing a sim
 
 ## Features
 
-The Budget Planner is divided into 3 main sections. The header contains the budget's summary displaying the current month, year, total income, total expenses and net income. The second section is a form that allow users to add transactions to the budget. The third section is the list of transactions dynamically generated based on user's input. 
+The Budget Planner is divided into 4 main sections. The header contains the logo and the budget's summary displaying the current month, year, total income, total expenses and net income. The second section is a form that allow users to add transactions to the budget. The third section is the list of transactions dynamically generated based on user's input. The fourth section is a footer with a github link. 
 
 ### Existing Features
 
-- __Summary__ 
+- __The Summary__ 
   - The "Net Income", "Income", "Expenses", and expenses percentgage on the summary is updated everytime a transaction is added to or removed from the budget. The total expenses section of the summary includes a percentage box that displays what percentage of the total income the total expenses represent. The box is deactivated if the income is 0, since division by 0 is not possible. 
+ 
+![Summary](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/summary.png)
 
-- __Form__
+- __The Form__
   - The form contains 4 elements: 
     - a toggle between income/expense.
     - an input text for the description.
@@ -36,13 +38,27 @@ The Budget Planner is divided into 3 main sections. The header contains the budg
     - the description must contain at least 3 characters.
     - the value must be positive non-zero numbers between 0.01 and 999,999,999.99.
 
-- __Transaction List__
+![Form](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/form.png)
+
+
+- __The Transaction List__
   - The transaction list is displayed in reverse order, with the most recent item displayed at the top of the list.
   - The list header containing the text "Transactions" is only displayed when the list is not empty.
-  
+
+![Transaction List](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/list.png)
+
   - List Items
     - Each list item consists of 4 elements:  
       - description
       - value
       - percentage box (the percentage the current transaction represents against the total income)
       - a delete button to remove the transaction from the budget.
+
+  ![List Items](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/list-items.png)
+
+
+- __The Footer__
+  - The footer contains a link to the project's github repository. 
+
+![Footer](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/footer.png)
+  
