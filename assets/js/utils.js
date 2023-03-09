@@ -20,7 +20,7 @@ export function formatNumber (n, type = '') {
    number = number.replace(/(\d)(?=(\d{3})+(\.(\d){0,2})*$)/g, '$1,');
    
    // return the value with a "+" or "-" sign depending on type (inc / exp)
-   return  (type === 'exp'? '-' : '+') + number;
+   return  number;
 }
 
 

@@ -326,7 +326,7 @@ header {
 
 #list {
    width: 500px;
-   margin:0px 20px 25px 20px;
+   margin:0px 20px 117px 20px;
 }
 
 /* List Items */
@@ -351,7 +351,7 @@ header {
 
 .list-item:hover > div:nth-child(1),
 .list-item:hover > div:nth-child(2) {
-   width: calc(50% - 45px);
+   width: calc(50% - 48px);
 }
 
 .list-item:hover .item-delete-btn {
@@ -400,26 +400,30 @@ header {
 }
 
 .item-delete-btn img {
-   width:  22px;
-   height: 22px;
+   width:  15px;
+   height: 15px;
 }
 
 footer {
    display: flex;
    justify-content: center;
    align-items: center;
-   position: sticky;
+   position: fixed;
    bottom: 0;
-   left: 50%;
-   z-index:10000;
    width: 100%;
-   background: linear-gradient(#f6f6f6ef, #f6f6f6fe, #f6f6f6fe, var(--main-bg-color));
-   padding-top:20px;
+   background: linear-gradient(#f6f6f6dd, #f6f6f6ee, #f6f6f6fe, #f6f6f6fe, var(--main-bg-color));
+   padding:20px 0 40px 0;
+   border-top: 1px solid #d4d4d4;
 }
 
 footer img {
    width:50px;
    height:50px;
+   transition: transform 0.2s var(--animation-curve);
+}
+
+footer img:hover {
+   transform: scale(1.2);
 }
 
 /* Tablet and Mobile screens */
