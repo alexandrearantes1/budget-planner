@@ -250,18 +250,18 @@ export class AppController {
       if (description.value.length < this.DESC_MIN_CHARS) {
          
          description.focus();
-         this.showAlert(`Description must have at least ${this.DESC_MIN_CHARS} characters.`, 3000);
+         this.showAlert(`Description must have at least ${this.DESC_MIN_CHARS} characters.`, 5000);
 
       } else if( value.value.length === 0 ) {
          
          value.focus();
-         this.showAlert('Value must have at least 1 digit', 3000);
+         this.showAlert('Value must have at least 1 digit', 5000);
 
       }
       else if (parsedValue < 0 || parsedValue > 999999999.99) {
 
          value.focus();
-         this.showAlert('Value range must be between 0.01 and 999,999,999.99', 3000);
+         this.showAlert('Value range must be between 0.01 and 999,999,999.99', 5000);
 
       } else {
 
@@ -274,7 +274,7 @@ export class AppController {
     * @param {string} msg message to be displayed in the alert box.
     * @usage showAlert('this field is required') - displays the message for 3 seconds. 
     */
-   showAlert (msg, duration = 3000) {
+   showAlert (msg, duration = 5000) {
 
       const alertBox = getElement(this.DOM.alertBox);
       alertBox.textContent = msg;
