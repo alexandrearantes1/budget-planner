@@ -567,6 +567,26 @@ footer svg:hover {
    }
 }
 
+@media screen and (max-height: 550px) { 
+   #add-item {
+      height: 150px;
+      top: 80px;
+   }
+
+   #add-item-desc, #add-item-value {
+      padding: 0;
+   }
+
+   footer {
+      height:40px;
+      padding: 0;
+   }
+
+   footer svg {
+      height: 35px;
+      width: 35px;
+   }
+}
 
 @media print {
    .noprint {
