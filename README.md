@@ -127,6 +127,7 @@ Here are a few examples:
 - HTML page lang attribute is set to "en".
 
 Wave Web Accessibility Evaluation Tool Report:
+
 ![RDC - 1600x900](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/wave.png)
 
 ### Lighthouse report
