@@ -42,7 +42,7 @@ body {
    background: var(--main-bg-color);
    font-family: 'Genos', sans-serif;
    font-size:1.3em;
-   min-width: 400px;
+   min-width: 320px;
 }
 
 header { 
@@ -447,7 +447,7 @@ footer svg:hover {
    }
 
    .header-container {
-      margin-left: auto;
+      
    }
 
    .logo {
@@ -541,6 +541,32 @@ footer svg:hover {
       display: none;
    }
 }
+
+@media screen and (max-width: 675px) { 
+   .header-container {
+      margin-left:auto;
+   }
+}
+
+@media screen and (max-width: 400px) { 
+   .header-container {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin:0;
+   }
+   .logo, .logo img {
+      border-radius: 0;
+      border-start-start-radius: var(--global-border-radius);
+      border-start-end-radius: var(--global-border-radius);
+      margin: auto;
+      height:50px;
+   }
+   #summary {
+      margin:auto;
+   }
+}
+
 
 @media print {
    .noprint {
