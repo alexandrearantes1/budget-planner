@@ -567,7 +567,7 @@ footer svg:hover {
    }
 }
 
-@media screen and (max-height: 550px) { 
+@media screen and (max-height: 550px) and  (max-width: 350px) { 
    #add-item {
       height: 150px;
       top: 80px;
