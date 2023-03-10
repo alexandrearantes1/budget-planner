@@ -98,7 +98,7 @@ The Budget Planner is divided into 4 main sections. The header contains the logo
   - Rent   -   750.00 -  37.5%
   The budget summary is updated with every entry, with the first entry, it displays the total income of 2,000.00 and net income of 2,000.00. After the second entry, it displays the total expenses of 750.00 and the percentage 37.5% next to it. The net income displayed should be 1,250.00.
 
-- Actual: the app behaves as expected. Each additional transaction updates the budget summary and recalculates and displays the updated percentages for all items on the list. 
+- Actual: the app behaves as expected. Each additional transaction updates the budget summary and recalculates and displays the updated percentages for all items on the list. There are no warnings or erros displayed in the console
 
 - _Scenario 2 - Missing Description_
   1. Navigate to [Budget Planner](https://alexandrearantes1.github.io/budget-planner/)
@@ -110,7 +110,7 @@ The Budget Planner is divided into 4 main sections. The header contains the logo
   2. The alert box is displayed after the button for 5 seconds with the message "Description must have at least 3 characters". 
   3. The focus is set to the Description text field.
 
-- Actual: the app behaves as expected with no warnings or erros. 
+- Actual: the app behaves as expected with no warnings or erros displayed in the console. 
 
 - _Scenario 3 - Missing Value_
   1. Navigate to [Budget Planner](https://alexandrearantes1.github.io/budget-planner/)
@@ -122,9 +122,22 @@ The Budget Planner is divided into 4 main sections. The header contains the logo
   2. The alert box is displayed after the button for 5 seconds with the message "Value must have at least 1 digit."
   3. The focus is set to the Value text field.
 
-- Actual: The app behaves as expected. There are no warnings or errors. 
+- Actual: The app behaves as expected. There are no warnings or erros displayed in the console. 
 
-- _Scenario 4 - Delete list item_
+- _Scenario 4 - Value out of range_
+  1. Navigate to [Budget Planner](https://alexandrearantes1.github.io/budget-planner/)
+  2. Enter a description with 3 characters or more. 
+  3. Enter a value higher than 999,999.99. 
+  4. Click on the button to submit or press "Enter".
+  
+- Expected:
+  1. The transaction is not added to the list. 
+  2. The alert box is displayed after the button for 5 seconds with the message "Value must be between 0.01 and 999,999.99".
+  The focus is set to the Value text field.
+  
+- Actual: the app behaves as expected. There are no warnings or erros displayed in the console.
+
+- _Scenario 5 - Delete list item_
   1. Navigate to [Budget Planner](https://alexandrearantes1.github.io/budget-planner/)
   2. Add a few transactions following the steps outlined on Scenario 1.
   3. Move the mouse over one of the transactions.
