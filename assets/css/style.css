@@ -83,6 +83,16 @@ header {
    border-end-start-radius: 8px;
 }
 
+.page-not-found {
+   /* color: var(--summary-pct-bg-color); */
+   margin-right:35px;
+   padding: 20px;
+   font-size: 1.3em;
+   text-align: center;
+   border-radius: var(--global-border-radius);
+   background-color:#921c2d
+}
+
 #summary {
    position: relative;
    display: flex;
