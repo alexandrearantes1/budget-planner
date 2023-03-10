@@ -257,12 +257,14 @@ header {
 #add-item input,
 #add-item button {
    margin:0 5px;
+   font-family: 'Genos', sans-serif;
 }
 
 #add-item input {
-   padding: 10px;
+   padding: 6px;
    border-radius: var(--global-border-radius);
    background-color: rgb(255, 255, 255);
+   font-size: 0.8em;
 }
 
 #add-item input:focus {
@@ -279,8 +281,9 @@ header {
 
 #add-item button {
    width:70px;
-   padding: 10px 10px;
+   padding: 6px;
    border-radius: var(--global-border-radius);
+   font-size:0.7em;
 }
 
 #add-item button:hover {

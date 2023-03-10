@@ -4,7 +4,8 @@ import { formatNumber, getElement } from './utils.js';
 export class AppController {
    constructor (year, month) {
       
-      this.DESC_MIN_CHARS = 3; 
+      this.DESC_MIN_CHARS = 3;
+      this.MAX_VALUE = 999999.99;
       this.budget = new Budget(year, month);
 
       this.months = ["January", "February", "March", "April", "May", "June",
@@ -258,10 +259,10 @@ export class AppController {
          this.showAlert('Value must have at least 1 digit', 5000);
 
       }
-      else if (parsedValue < 0 || parsedValue > 999999999.99) {
+      else if (parsedValue <= 0 || parsedValue > this.MAX_VALUE) {
 
          value.focus();
-         this.showAlert('Value range must be between 0.01 and 999,999,999.99', 5000);
+         this.showAlert(`Value must be between 0.01 and ${formatNumber(this.MAX_VALUE)}`, 5000);
 
       } else {
 
