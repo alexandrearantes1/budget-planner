@@ -105,18 +105,18 @@ The Budget Planner is divided into 4 main sections.
 
 ### Responsiveness
 
-The app was tested using a MacBook Pro 13" on Chrome, Firefox, Safari and Microsoft Edge as well as on a Google Pixel 5 Pro using Chrome. 
- 
-- On large screens (above 768px wide):
-  - The summary, form and list are centered on the screen. The logo is placed to the left of the summary. 
-  - The form is contained in a single line, the description box is larger than the value box and the submit button displays an icon representing a keyboard's "enter" key.
-  - The transaction list displays each transaction's description, value and a percentage box. The delete button is hidden. When the user passes the mouse over a transaction, the value and percentage box slides to the left revealing the delete button.
-  - The footer is fixed at the bottom of the screen. As the list grows, it will be hidden behind the footer with a slight transparent gradient.
- 
-- On small screens (below or equal to 768px wide):
-  - The summary is compressed in size (reduced font sizes and boxes paddings are applied). The summary is no longer centered at the screen, instead the whole header content is centered (summary + logo) to prevent the logo from going off screen in small screen devices.
-  - The form is broken into 4 lines, one for each element to make it easier to click on each element when using smartphones. The toggle button is now centered. The text fields and the submit button are resized to 90% the size of the screen and the submit button displays the label "Add Transaction" instead of the "enter" icon. 
-  - The transaction list is now expanded to take 100% of the screen width. The fonts are slightly larger and the delete button is no longer hidden.
+The web app responsiveness was tested using the [https://responsivedesignchecker.com/](https://responsivedesignchecker.com/) on a variety of resolutions.
+
+Here are a few examples:
+
+320x480:
+![RDC - 320x480](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/rdc-320.png)
+768x1024:
+![RDC - 768x1024](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/rdc-768.png)
+1366x1024:
+![RDC - 1366x1024](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/rdc-1366.png)
+1600x900:
+![RDC - 1600x900](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/rdc-1600.png)
 
 ### Accessibility
 
@@ -125,6 +125,9 @@ The app was tested using a MacBook Pro 13" on Chrome, Firefox, Safari and Micros
 - Semantic HTML was used to create the structure of the app.
 - All non-textual elements relevant to users contain aria-label to ensure screen readers are effective. 
 - HTML page lang attribute is set to "en".
+
+Wave Web Accessibility Evaluation Tool Report:
+![RDC - 1600x900](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/wave.png)
 
 ### Lighthouse report
 
@@ -234,6 +237,14 @@ Actual: the app behaves as expected. There are no warnings or erros displayed in
     - utils.js
     ![JSHint Validator](https://alexandrearantes1.github.io/budget-planner/assets/images/readme/jshint-utils.png)
 
+### Bugs Fixed
+- When clicking on the button to delete a transaction, there was a problem identifying which element was actually triggering the click event. This led to the app not finding the element which actually had the ID to be removed. 
+  The solution was to check which type of element was being clicked (```<img>``` or ```<a>```) and depending on the result, seek the immediate parent element or the parent of the parent element to retrieve the ID.
+  
+- There was a serious issue when using the app in very small screens 320x480. The list became completely covered by footer and the layout was not apropriate for the size.
+  The solution was to reduce the size of the footer icon and paddings, but it still was not enough so I decided to  
+  "unstick" the form, freeing up more space at the expense of not having the form always available.  
+
 ### Unfixed Bugs
 - If percentages have more than 4 digits before the decimal place, the space designated for the percentage box starts to blow up and can generate odd layout issues. It is unlikely to occur on a realistic scenario, but this issue will be addressed in a future release.
 
@@ -262,6 +273,16 @@ The following git commands were used throughout the development of the app:
     - A live link will be displayed in a green banner when published successfully.
   - The live web app can be found here: [Budget Planner](https://alexandrearantes1.github.io/budget-planner/)
 
+### Clone the Repository Code Locally
+1. Navigate to the [Budget Planner Repository](https://github.com/alexandrearantes1/budget-planner).
+2. Click on the code drop down button
+3. Click on HTTPS
+4. Copy the repository link to the clipboard
+5. Open your IDE of choice (git must be installed for the next steps)
+6. Type git clone copied-git-url into the IDE terminal
+7. The project will now of been cloned on your local machine for use.
+
+
 ## Credits
 
 - The Budget Planner was inspired by the Budgety Project from the Javascript course at [Coding Heroes](https://codingheroes.io) by Jonas Schmedtmann. 
@@ -279,5 +300,5 @@ The following git commands were used throughout the development of the app:
 
 - Delete Button Icon from [IconScout](https://iconscout.com/icons/trash).
   
-- formatNumber function uses the regular expression solution proposed by [Scaramouche](https://stackoverflow.com/questions/49261076/applying-currency-format-using-replace-and-a-regular-expression)
+- ```formatNumber()``` function uses the regular expression solution proposed by [Scaramouche](https://stackoverflow.com/questions/49261076/applying-currency-format-using-replace-and-a-regular-expression)
 to insert ',' every 3 digits and '.' before the decimal if needed.
